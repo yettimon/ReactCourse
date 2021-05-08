@@ -1,18 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap'
 
-class DishDetail extends Component{
-  
-    constructor(props) {
-        super(props);
-        console.log(props)
-        this.state = {
-            selectedDish : this.props.comments
-        };
-        console.log('Menu component counstructor is invoked');
-    }
 
-    renderDish(dish){
+    function RenderDish({dish}){
         if(dish != null){
             return(
                 <div className="col-12 col-md-5 m-1">
@@ -34,7 +24,8 @@ class DishDetail extends Component{
 
         }
     }
-    renderComments(comments){
+    
+    function RenderComments({comments}){
         const commentaries = comments.map(comment =>{
             return(
                 <li key={comment.id}>
@@ -55,16 +46,18 @@ class DishDetail extends Component{
             </div>
         )
     }
-    render(){
-        const dish = this.props.dish
-        console.log(dish);
+    const DishDetail= (props) => {
+        const dish = props.dish
+        //console.log(dish);
         if (dish != null) {
-        const dishItem = this.renderDish(dish);
-        const dishComments = this.renderComments(dish.comments);
+        const dishItem = <RenderDish dish = {props.dish}/>
+        const dishComments = <RenderComments comments={props.dish.comments}/>
         return (
-            <div className='row'>
+            <div className = "container">
+            <div className= "row">
                 {dishItem}
                 {dishComments}
+            </div>
             </div>
         )
     }
@@ -74,6 +67,5 @@ class DishDetail extends Component{
         )
     }
 
-}
 }
 export default DishDetail
